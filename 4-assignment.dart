@@ -1,11 +1,11 @@
-// Define superclass
+import 'dart:io';
+
 class Animal {
   void makeSound() {
     print('Some generic sound');
   }
 }
 
-// Define subclass
 class Cat extends Animal {
   @override
   void makeSound() {
@@ -13,43 +13,52 @@ class Cat extends Animal {
   }
 }
 
-// Define interface
 abstract class Employee {
   void calculateSalary();
 }
 
-// Implement interface
 class Manager implements Employee {
   @override
   void calculateSalary() {
-    // Salary calculation logic
+    print('Calculating manager\'s salary...');
   }
 }
 
-// Initialize object from file
 class EmployeeData {
+  List<String> employees = [];
+
   EmployeeData(String filePath) {
-    // Read data from file and initialize objects
+    File file = File(filePath);
+    employees = file.readAsLinesSync();
+  }
+
+  void printEmployees() {
+    print('Employee list:');
+    for (String employee in employees) {
+      print(employee);
+    }
   }
 }
 
-// Method demonstrating loop
 void loopDemo() {
-  List<int> numbers = [1, 2, 3, 4, 5];
-  for (int number in numbers) {
-    print('Number: $number');
+  print('Loop demonstration:');
+  for (int i = 1; i <= 5; i++) {
+    print('Iteration $i');
   }
 }
 
 void main() {
-  // Create and use objects to demonstrate various features
+  Animal animal = Animal();
+  animal.makeSound();
+
   Cat cat = Cat();
   cat.makeSound();
 
   Manager manager = Manager();
   manager.calculateSalary();
 
-  EmployeeData employeeData = EmployeeData('employee_data.csv');
+  EmployeeData employeeData = EmployeeData('employees.txt');
+  employeeData.printEmployees();
 
   loopDemo();
 }
